@@ -21,45 +21,47 @@
             android:layout_alignTop="@+id/bLogin"
             android:layout_marginTop="103dp"
             android:text="Register Here "
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             tools:layout_editor_absoluteX="27dp"
             tools:layout_editor_absoluteY="268dp" />
-
-        <EditText
-            android:id="@+id/etPassword"
-            android:layout_width="336dp"
-            android:layout_height="52dp"
-            android:ems="10"
-            android:hint="password"
-            android:inputType="textPassword"
-            tools:layout_editor_absoluteX="23dp"
-            tools:layout_editor_absoluteY="103dp"
-            android:layout_below="@+id/etUsername"
-            android:layout_alignRight="@+id/bLogin"
-            android:layout_alignEnd="@+id/bLogin"
-            android:layout_marginTop="23dp" />
 
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="331dp"
             android:layout_height="57dp"
+            android:layout_alignEnd="@+id/etPassword"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/etPassword"
+            android:layout_marginTop="61dp"
             android:ems="10"
             android:hint="Username"
             android:inputType="textPersonName"
             app:layout_constraintBottom_toTopOf="@+id/etPassword"
-            tools:layout_editor_absoluteX="22dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/etPassword"
-            android:layout_alignEnd="@+id/etPassword"
-            android:layout_marginTop="61dp" />
+            tools:layout_editor_absoluteX="22dp" />
+
+        <EditText
+            android:id="@+id/etPassword"
+            android:layout_width="336dp"
+            android:layout_height="52dp"
+            android:layout_alignEnd="@+id/bLogin"
+            android:layout_alignRight="@+id/bLogin"
+            android:layout_below="@+id/etUsername"
+            android:layout_marginTop="23dp"
+            android:ems="10"
+            android:hint="password"
+            android:inputType="textPassword"
+            tools:layout_editor_absoluteX="23dp"
+            tools:layout_editor_absoluteY="103dp" />
 
         <Button
             android:id="@+id/bLogin"
             android:layout_width="340dp"
             android:layout_height="59dp"
+            android:layout_marginTop="38dp"
             android:text="Login"
             tools:layout_editor_absoluteX="23dp"
             tools:layout_editor_absoluteY="176dp"
-            android:layout_marginTop="38dp"
             android:layout_below="@+id/etPassword"
             android:layout_centerHorizontal="true" />
     </RelativeLayout>
