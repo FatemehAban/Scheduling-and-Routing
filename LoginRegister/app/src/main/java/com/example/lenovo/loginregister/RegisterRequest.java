@@ -8,9 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Stack;
 
-/**
- * Created by lenovo on 17/6/2017.
- */
+
 
 public class RegisterRequest extends StringRequest {
     private static final String REGISTER_REQUEST_URL ="https://fatemehsaeedifar.000webhostapp.com/Register.php";
@@ -24,7 +22,7 @@ public class RegisterRequest extends StringRequest {
         params.put("password", password);
         params.put("age", age + "");
         params.put("gender", gender);
-        params.put("name", name);
+
 
     }
     public Map<String,String> getParams(){

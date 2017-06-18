@@ -10,7 +10,7 @@
         $password = $_POST["password"];
 
     $statement = mysqli_prepare($con, "INSERT INTO user (name, username, age, password, gender) VALUES (?, ?, ?, ?, ?)");
-    mysqli_stmt_bind_param($statement, "siss", $name, $username, $age, $password,$gender);
+    mysqli_stmt_bind_param($statement, "ssiss", $name, $username, $age, $password,$gender);
     mysqli_stmt_execute($statement);
     
     $response = array();
@@ -19,6 +19,7 @@
     else
     {
         $response["message"]= "No data found in post message";
+        $response["success"] = false;
     }
     
     echo json_encode($response);
