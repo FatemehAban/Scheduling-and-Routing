@@ -16,37 +16,17 @@
             android:id="@+id/tvWelcomeMsg"
             android:layout_width="363dp"
             android:layout_height="66dp"
-            android:layout_alignLeft="@+id/editText"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_alignStart="@+id/editText"
+            android:layout_marginTop="56dp"
             android:text="tvWelcomeMsg"
+            android:textAllCaps="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="30dp" />
 
-        <EditText
-            android:id="@+id/editText"
-            android:layout_width="362dp"
-            android:layout_height="69dp"
-            android:layout_below="@+id/tvWelcomeMsg"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="94dp"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:text="Name"
-            tools:layout_editor_absoluteX="11dp"
-            tools:layout_editor_absoluteY="206dp" />
-
-        <TextView
-            android:id="@+id/etUsername"
-            android:layout_width="363dp"
-            android:layout_height="66dp"
-            android:layout_alignEnd="@+id/editText"
-            android:layout_alignRight="@+id/editText"
-            android:layout_below="@+id/tvWelcomeMsg"
-            android:layout_marginTop="14dp"
-            android:text="Username"
-            tools:layout_editor_absoluteX="11dp"
-            tools:layout_editor_absoluteY="140dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>
