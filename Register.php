@@ -1,25 +1,40 @@
+
 <?php
-    $con = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
-    if (!empty($POST))
-    {
-
-        $name = $_POST["name"];
-        $age = $_POST["age"];
-        $username = $_POST["username"];
-        $gender = $_POST["gender"];
-        $password = $_POST["password"];
-
-    $statement = mysqli_prepare($con, "INSERT INTO user (name, username, age, password, gender) VALUES (?, ?, ?, ?, ?)");
-    mysqli_stmt_bind_param($statement, "ssiss", $name, $username, $age, $password,$gender);
-    mysqli_stmt_execute($statement);
+    require("password.php");
+    $connect = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
     
-    $response = array();
-    $response["success"] = true;  
+    $name = $_POST["name"];
+    $age = $_POST["age"];
+    $gender = $_POST["gender"];
+    $username = $_POST["username"];
+    $password = $_POST["password"];
+     function registerUser() {
+        global $connect, $name, $age, $gender, $username, $password;
+        $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+        $statement = mysqli_prepare($connect, "INSERT INTO user (name, age, gender, username, password) VALUES (?, ?, ?, ?, ?)");
+        mysqli_stmt_bind_param($statement, "sisss", $name, $age, $gender, $username, $passwordHash);
+        mysqli_stmt_execute($statement);
+        mysqli_stmt_close($statement);     
     }
-    else
-    {
-        $response["message"]= "No data found in post message";
-        $response["success"] = false;
+    function usernameAvailable() {
+        global $connect, $username;
+        $statement = mysqli_prepare($connect, "SELECT * FROM user WHERE username = ?"); 
+        mysqli_stmt_bind_param($statement, "s", $username);
+        mysqli_stmt_execute($statement);
+        mysqli_stmt_store_result($statement);
+        $count = mysqli_stmt_num_rows($statement);
+        mysqli_stmt_close($statement); 
+        if ($count < 1){
+            return true; 
+        }else {
+            return false; 
+        }
+    }
+    $response = array();
+    $response["success"] = false;  
+    if (usernameAvailable()){
+        registerUser();
+        $response["success"] = true;  
     }
     
     echo json_encode($response);
