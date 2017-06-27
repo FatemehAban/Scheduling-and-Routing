@@ -19,9 +19,9 @@ public class RegisterRequest extends StringRequest {
         params = new HashMap<>();
         params.put("name", name);
         params.put("username", username);
-        params.put("password", password);
         params.put("age", age + "");
         params.put("gender", gender);
+        params.put("password", password);
 
 
     }

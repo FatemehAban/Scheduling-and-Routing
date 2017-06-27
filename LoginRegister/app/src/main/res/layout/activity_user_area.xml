@@ -15,7 +15,7 @@
         <TextView
             android:id="@+id/tvWelcomeMsg"
             android:layout_width="363dp"
-            android:layout_height="66dp"
+            android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
@@ -26,6 +26,25 @@
             android:textStyle="bold"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="30dp" />
+
+        <TextView
+            android:id="@+id/tv_GPSLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvWelcomeMsg"
+            android:layout_marginTop="30dp"
+            android:text="TextView"
+            android:textAlignment="center"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/btn_GPSLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_GPSLocation"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:text=" Get GPS Location" />
 
     </RelativeLayout>
 
