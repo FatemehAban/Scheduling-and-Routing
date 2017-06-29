@@ -16,10 +16,9 @@
             android:id="@+id/tvRegisterHere"
             android:layout_width="335dp"
             android:layout_height="49dp"
-            android:layout_alignLeft="@+id/etUsername"
-            android:layout_alignStart="@+id/etUsername"
-            android:layout_alignTop="@+id/bLogin"
-            android:layout_marginTop="103dp"
+            android:layout_alignLeft="@+id/etPassword"
+            android:layout_below="@+id/bLogin"
+            android:layout_marginTop="30dp"
             android:text="Register Here "
             android:textAlignment="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -54,16 +53,26 @@
             tools:layout_editor_absoluteX="23dp"
             tools:layout_editor_absoluteY="103dp" />
 
+        <CheckBox
+            android:id="@+id/cb_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/etPassword"
+            android:layout_alignRight="@+id/etPassword"
+            android:layout_below="@+id/etPassword"
+            android:layout_marginTop="23dp"
+            android:text="Are you a driver?" />
+
         <Button
             android:id="@+id/bLogin"
             android:layout_width="340dp"
             android:layout_height="59dp"
+            android:layout_below="@id/cb_driver"
+            android:layout_centerHorizontal="true"
             android:layout_marginTop="38dp"
             android:text="Login"
             tools:layout_editor_absoluteX="23dp"
-            tools:layout_editor_absoluteY="176dp"
-            android:layout_below="@+id/etPassword"
-            android:layout_centerHorizontal="true" />
+            tools:layout_editor_absoluteY="176dp" />
     </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

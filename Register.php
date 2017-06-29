@@ -11,22 +11,23 @@
     $password = $_POST["password"];
 
 
-$response["name"] = $name; 
-$response["age"] = $age; 
-$response["gender"] = $gender; 
-$response["username"] = $username; 
-$response["password"] = $password; 
+    $response["name"] = $name; 
+    $response["age"] = $age; 
+    $response["gender"] = $gender; 
+    $response["username"] = $username; 
+    $response["password"] = $password; 
 
 
 
 
-     function registerUser() {
+    function registerUser() {
         global $connect, $name, $age, $gender, $username, $password;
         $statement = mysqli_prepare($connect, "INSERT INTO user (name, age, gender, username, password) VALUES (?, ?, ?, ?, ?)");
         mysqli_stmt_bind_param($statement, "sisss", $name, $age, $gender, $username, $password);
         mysqli_stmt_execute($statement);
         mysqli_stmt_close($statement);     
     }
+    
     function usernameAvailable() {
         global $connect, $username;
         $statement = mysqli_prepare($connect, "SELECT * FROM user WHERE username = ?"); 
@@ -44,8 +45,9 @@ $response["password"] = $password;
     
     $response["success"] = false;  
     if (usernameAvailable()){
-        registerUser();
-        $response["success"] = true;  
+        global $response;
+        $response["success"] = true;
+        registerUser(); 
     }
     
     echo json_encode($response);
