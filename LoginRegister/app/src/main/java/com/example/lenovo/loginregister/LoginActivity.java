@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -18,6 +19,8 @@ import org.json.JSONObject;
 
 public class LoginActivity extends AppCompatActivity {
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +29,7 @@ public class LoginActivity extends AppCompatActivity {
         final EditText etPassword = (EditText) findViewById(R.id.etPassword);
         final Button bLogin = (Button) findViewById(R.id.bLogin);
         final TextView registerLink = (TextView) findViewById(R.id.tvRegisterHere);
+        final CheckBox cb_driver = (CheckBox) findViewById(R.id.cb_driver);
         registerLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,13 +51,25 @@ public class LoginActivity extends AppCompatActivity {
                             JSONObject jsonResponse = new JSONObject(response);
                             boolean success = jsonResponse.getBoolean("success");
                             if (success) {
-                                String name = jsonResponse.getString("name");
+                                if(cb_driver.isChecked()) {
+                                    String name = jsonResponse.getString("name");
 
-                                Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
-                                intent.putExtra("name", name);
-                                intent.putExtra("username", username);
+                                    Intent intent = new Intent(LoginActivity.this, DriverAreaActivity.class);
+                                    intent.putExtra("name", name);
+                                    intent.putExtra("username", username);
+                                    LoginActivity.this.startActivity(intent);
 
-                                LoginActivity.this.startActivity(intent);
+                                }else {
+                                    String name = jsonResponse.getString("name");
+
+                                    Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                                    intent.putExtra("name", name);
+                                    intent.putExtra("username", username);
+                                    LoginActivity.this.startActivity(intent);
+                                }
+
+
+
                             } else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
                                 builder.setMessage("login Failed").setNegativeButton("Retry", null).create().show();
@@ -73,5 +89,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
+
+
 }
