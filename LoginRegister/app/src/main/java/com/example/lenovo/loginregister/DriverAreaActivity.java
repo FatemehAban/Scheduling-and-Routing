@@ -90,7 +90,7 @@ public class DriverAreaActivity extends AppCompatActivity {
         }
     };
 
-// Start the Runnable immediately
+
 
 
     }
