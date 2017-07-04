@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">LoginRegister</string>
+    <string name="title_activity_user_area">Map</string>
+    <string name="title_activity_driver_area">Map</string>
 </resources>

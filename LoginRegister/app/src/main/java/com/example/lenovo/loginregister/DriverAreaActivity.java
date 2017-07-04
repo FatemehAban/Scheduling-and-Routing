@@ -1,45 +1,66 @@
 package com.example.lenovo.loginregister;
 
 import android.Manifest;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
 import android.widget.TextView;
-import android.os.Handler;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class DriverAreaActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xmlpull.v1.sax2.Driver;
 
+public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCallback {
+
+    private GoogleMap mMap;
     private TextView tv_GPSlocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
-
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_area);
-        final TextView etUsername = (TextView) findViewById(R.id.etUsername);
-        final TextView WelcomeMessage = (TextView) findViewById(R.id.tvWelcomeMsg);
+
 
         Intent intent = getIntent();
         String name = intent.getStringExtra("name");
-        String message = name + " " + "welcome to your user area";
-        WelcomeMessage.setText(message);
-        tv_GPSlocation = (TextView) findViewById(R.id.tv_GPSLocation);
+        String username = intent.getStringExtra("username");
+
+        tv_GPSlocation = findViewById(R.id.tv_GPSLocation);
+
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                tv_GPSlocation.append("\n"+ location.getLatitude() + "    " + location.getLongitude());
+                tv_GPSlocation.setText(location.getLatitude() + " , " + location.getLongitude());
+
+                LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
+                mMap.addMarker(new MarkerOptions().position(sydney));
+               // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+                float zoomLevel = 16.50f; //This goes up to 21
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+
             }
 
             @Override
@@ -67,33 +88,35 @@ public class DriverAreaActivity extends AppCompatActivity {
 
                 return;
 
+            } else {
+                handler.post(runnable);
             }
 
         }
 
-        handler.post(runnable);
+        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
     }
 
-    // Create the Handler
-    private Handler handler = new Handler();
 
-    // Define the code block to be executed
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+    }
+
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            // Insert custom code here
+
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-            // Repeat every 2 seconds
-            handler.postDelayed(runnable, 5000);
+            // Repeat every 3 seconds
+            handler.postDelayed(runnable, 3000);
         }
     };
-
-
-
-
-    }
-
-
-
+}
