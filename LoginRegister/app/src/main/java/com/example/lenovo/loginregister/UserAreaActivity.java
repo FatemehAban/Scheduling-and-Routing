@@ -1,17 +1,16 @@
 package com.example.lenovo.loginregister;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,8 +44,8 @@ public class UserAreaActivity extends FragmentActivity implements OnMapReadyCall
         setContentView(R.layout.activity_user_area);
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String username = intent.getStringExtra("username");
+        final String name = intent.getStringExtra("name");
+        final String username = intent.getStringExtra("username");
 
         btn_getGPS = (Button) findViewById(R.id.btn_GPSLocation);
         tv_GPSlocation = (TextView) findViewById(R.id.tv_GPSLocation);
@@ -57,12 +56,30 @@ public class UserAreaActivity extends FragmentActivity implements OnMapReadyCall
             @Override
             public void onLocationChanged(Location location) {
                 tv_GPSlocation.setText(location.getLatitude() + " , " + location.getLongitude());
+                mMap.clear();
 
                 LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(sydney));
                 // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                float zoomLevel = 16.5f; //This goes up to 21
+                float zoomLevel = 18.5f; //This goes up to 21
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+
+                //push gps location on server
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+
+
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                GPSRequest gpsRequest = new GPSRequest(name, username, location.getLatitude(), location.getLongitude(), responseListener);
+                RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
+                queue.add(gpsRequest);
 
             }
 

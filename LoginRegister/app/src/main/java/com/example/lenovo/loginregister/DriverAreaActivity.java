@@ -43,8 +43,8 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
 
 
         Intent intent = getIntent();
-        String name = intent.getStringExtra("name");
-        String username = intent.getStringExtra("username");
+        final String name = intent.getStringExtra("name");
+        final String username = intent.getStringExtra("username");
 
         tv_GPSlocation = findViewById(R.id.tv_gpsLocation);
 
@@ -53,14 +53,29 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
             @Override
             public void onLocationChanged(Location location) {
                 tv_GPSlocation.setText(location.getLatitude() + " , " + location.getLongitude());
-
+                mMap.clear();
                 LatLng sydney = new LatLng(location.getLatitude(), location.getLongitude());
                 mMap.addMarker(new MarkerOptions().position(sydney));
                // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
-                float zoomLevel = 16.50f; //This goes up to 21
+                float zoomLevel = 18.50f; //This goes up to 21
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
 
                 //Sending a GPS Location to server
+                //push gps location on server
+                Response.Listener<String> responseListener = new Response.Listener<String>() {
+                    public void onResponse(String response) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(response);
+                            boolean success = jsonResponse.getBoolean("success");
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+                GPSRequest gpsRequest = new GPSRequest(name, username, location.getLatitude(), location.getLongitude(), responseListener);
+                RequestQueue queue = Volley.newRequestQueue(DriverAreaActivity.this);
+                queue.add(gpsRequest);
 
 
 
