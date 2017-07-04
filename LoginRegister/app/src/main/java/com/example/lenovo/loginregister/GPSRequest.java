@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class GPSRequest extends StringRequest {
 
-    private static final String GPS_URL ="https://fatemehsaeedifar.000webhostapp.com/GPS.php";
+    private static final String GPS_URL ="https://www.fudzorro.com/ant/GPS.php";
     private Map<String,String> params;
 
     public GPSRequest(String name, String username, double Latitude, double Longitude, Response.Listener<String> Listener){

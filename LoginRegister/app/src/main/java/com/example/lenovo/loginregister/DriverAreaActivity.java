@@ -35,7 +35,6 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
     private TextView tv_GPSlocation;
     private LocationManager locationManager;
     private LocationListener locationListener;
-    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +46,7 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
         String name = intent.getStringExtra("name");
         String username = intent.getStringExtra("username");
 
-        tv_GPSlocation = findViewById(R.id.tv_GPSLocation);
+        tv_GPSlocation = findViewById(R.id.tv_gpsLocation);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -60,6 +59,10 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
                // mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
                 float zoomLevel = 16.50f; //This goes up to 21
                 mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, zoomLevel));
+
+                //Sending a GPS Location to server
+
+
 
             }
 
@@ -88,9 +91,9 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
 
                 return;
 
-            } else {
-                handler.post(runnable);
             }
+
+            getGPSLocations();
 
         }
 
@@ -108,15 +111,10 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
     }
 
 
-    private Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
+    private void getGPSLocations() {
 
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
 
-            // Repeat every 3 seconds
-            handler.postDelayed(runnable, 3000);
-        }
-    };
+    }
 }

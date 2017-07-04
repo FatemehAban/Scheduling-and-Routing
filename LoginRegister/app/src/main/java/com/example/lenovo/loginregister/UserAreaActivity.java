@@ -52,6 +52,8 @@ public class UserAreaActivity extends FragmentActivity implements OnMapReadyCall
         tv_GPSlocation = (TextView) findViewById(R.id.tv_GPSLocation);
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
+
+
             @Override
             public void onLocationChanged(Location location) {
                 tv_GPSlocation.setText(location.getLatitude() + " , " + location.getLongitude());
@@ -108,8 +110,8 @@ public class UserAreaActivity extends FragmentActivity implements OnMapReadyCall
     private void configureButton() {
         btn_getGPS.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
-                locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, locationListener);
+                locationManager.requestSingleUpdate(LocationManager.GPS_PROVIDER,locationListener,null);
+                locationManager.requestSingleUpdate(LocationManager.NETWORK_PROVIDER, locationListener, null);
 
             }
 
