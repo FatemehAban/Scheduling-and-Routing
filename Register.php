@@ -1,8 +1,13 @@
-
 <?php
-    $connect = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
 
-    $response = array();
+    $servername = "148.72.232.169";
+    $username = "ant";
+    $password = "AntColony";
+    $dbname = "ant";
+    $dbport = "3306";
+
+    $connect = mysqli_connect($servername,$username,$password,$dbname,$dbport);
+  
     
     $name = $_POST["name"];
     $age = $_POST["age"];
@@ -10,22 +15,22 @@
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-
+    $response = array();
     $response["name"] = $name; 
     $response["age"] = $age; 
     $response["gender"] = $gender; 
     $response["username"] = $username; 
-    $response["password"] = $password; 
+    $response["password"] = $password;
+    $response["success"] = false;
 
-
-
-
+    
     function registerUser() {
-        global $connect, $name, $age, $gender, $username, $password;
+        global $connect, $name, $age, $gender, $username, $password, $response;
         $statement = mysqli_prepare($connect, "INSERT INTO user (name, age, gender, username, password) VALUES (?, ?, ?, ?, ?)");
         mysqli_stmt_bind_param($statement, "sisss", $name, $age, $gender, $username, $password);
         mysqli_stmt_execute($statement);
-        mysqli_stmt_close($statement);     
+        mysqli_stmt_close($statement);
+        $response["success"] = true;     
     }
     
     function usernameAvailable() {
@@ -42,11 +47,9 @@
             return false; 
         }
     }
-    
-    $response["success"] = false;  
-    if (usernameAvailable()){
-        global $response;
-        $response["success"] = true;
+
+         
+    if (usernameAvailable()){        
         registerUser(); 
     }
     

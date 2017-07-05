@@ -1,6 +1,12 @@
 
 <?php
-    $con = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
+    $servername = "148.72.232.169";
+    $username = "ant";
+    $password = "AntColony";
+    $dbname = "ant";
+    $dbport = "3306";
+
+    $con = mysqli_connect($servername,$username,$password,$dbname,$dbport);
     
     $username = $_POST["username"];
     $password = $_POST["password"];
@@ -10,7 +16,7 @@
     mysqli_stmt_execute($statement);
     
     mysqli_stmt_store_result($statement);
-    mysqli_stmt_bind_result($statement, $userID, $name, $age, $gender, $username, $password);
+    mysqli_stmt_bind_result($statement, $userID, $name, $age, $gender, $username, $password, $Longitude, $Latitude, $timeStamp);
     
     $response = array();
     $response["success"] = false;  

@@ -1,9 +1,13 @@
-
 <?php
-    $connect = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
+    $servername = "148.72.232.169";
+    $username = "ant";
+    $password = "AntColony";
+    $dbname = "ant";
+    $dbport = "3306";
 
-    $response = array();
-    
+    $connect = mysqli_connect($servername,$username,$password,$dbname,$dbport);
+
+    $response = array();    
    
     $longitude = $_POST["longitude"];
     $latitude = $_POST["latitude"];
@@ -14,15 +18,13 @@
     $response["longitude"] = $longitude; 
     $response["latitude"] = $latitude; 
     $response["username"] = $username;
-    $response["name"] = $name 
+    $response["name"] = $name; 
     
-    function GPSLocation() {
-        global $connect, $longitude, $latitude, $username;
-        $statement = mysqli_prepare "UPDATE user SET latitude = ?, longitude= ?  WHERE username= ? ";
-        mysqli_stmt_bind_param($statement, "dds", $latitude, $longitude, $username);
-        mysqli_stmt_execute($statement);
-        mysqli_stmt_close($statement);     
-    }
+    $statement = mysqli_prepare($connect, "UPDATE user SET latitude = ?, longitude= ?  WHERE username= ? ");
+    mysqli_stmt_bind_param($statement, "dds", $latitude, $longitude, $username);
+    mysqli_stmt_execute($statement);
+    mysqli_stmt_close($statement);     
+
 
     $response["success"] = true;
 
