@@ -12,7 +12,7 @@ public class RegisterRequest extends StringRequest {
     private static final String REGISTER_REQUEST_URL ="https://fatemehsaeedifar.000webhostapp.com/Register.php";
     private Map<String,String> params;
 
-    public RegisterRequest(String name, String username, int age, String password, String gender, Response.Listener<String> Listener){
+    public RegisterRequest(String name, String username, int age, String password, String gender, Boolean isDriver, Response.Listener<String> Listener){
         super(Method.POST,REGISTER_REQUEST_URL, Listener, null);
         params = new HashMap<>();
         params.put("name", name);
@@ -20,6 +20,7 @@ public class RegisterRequest extends StringRequest {
         params.put("age", age + "");
         params.put("gender", gender);
         params.put("password", password);
+        params.put("isdriver",isDriver.toString());
 
 
     }

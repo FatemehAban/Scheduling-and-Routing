@@ -77,7 +77,7 @@ public class UserAreaActivity extends FragmentActivity implements OnMapReadyCall
                         }
                     }
                 };
-                GPSRequest gpsRequest = new GPSRequest(name, username, location.getLatitude(), location.getLongitude(), responseListener);
+                GPSRequestUser gpsRequest = new GPSRequestUser(name, username, location.getLatitude(), location.getLongitude(), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(UserAreaActivity.this);
                 queue.add(gpsRequest);
 

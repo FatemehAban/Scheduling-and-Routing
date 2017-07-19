@@ -44,6 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = etUsername.getText().toString();
                 final String password = etPassword.getText().toString();
+                final Boolean isDriver = cb_driver.isChecked();
 
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
                     public void onResponse(String response) {
@@ -82,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 };
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                LoginRequest loginRequest = new LoginRequest(username, password, isDriver, responseListener);
                 RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
                 queue.add(loginRequest);
 

@@ -14,15 +14,13 @@
     $response["longitude"] = $longitude; 
     $response["latitude"] = $latitude; 
     $response["username"] = $username;
-    $response["name"] = $name 
+    $response["name"] = $name;
     
-    function GPSLocation() {
-        global $connect, $longitude, $latitude, $username;
-        $statement = mysqli_prepare "UPDATE user SET latitude = ?, longitude= ?  WHERE username= ? ";
-        mysqli_stmt_bind_param($statement, "dds", $latitude, $longitude, $username);
-        mysqli_stmt_execute($statement);
-        mysqli_stmt_close($statement);     
-    }
+    $statement = mysqli_prepare($connect, "UPDATE Driver SET latitude = ?, longitude= ?  WHERE username= ? ");
+    mysqli_stmt_bind_param($statement, "dds", $latitude, $longitude, $username);
+    mysqli_stmt_execute($statement);
+    mysqli_stmt_close($statement);     
+   
 
     $response["success"] = true;
 

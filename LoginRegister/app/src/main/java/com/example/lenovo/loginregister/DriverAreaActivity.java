@@ -1,14 +1,12 @@
 package com.example.lenovo.loginregister;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
-import android.os.Handler;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -27,7 +25,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xmlpull.v1.sax2.Driver;
 
 public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -46,7 +43,7 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
         final String name = intent.getStringExtra("name");
         final String username = intent.getStringExtra("username");
 
-        tv_GPSlocation = findViewById(R.id.tv_gpsLocation);
+        tv_GPSlocation = (TextView) findViewById(R.id.tv_gpsLocation);
 
         locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
         locationListener = new LocationListener() {
@@ -73,7 +70,7 @@ public class DriverAreaActivity extends FragmentActivity implements OnMapReadyCa
                         }
                     }
                 };
-                GPSRequest gpsRequest = new GPSRequest(name, username, location.getLatitude(), location.getLongitude(), responseListener);
+                GPSRequestDriver gpsRequest = new GPSRequestDriver(name, username, location.getLatitude(), location.getLongitude(), responseListener);
                 RequestQueue queue = Volley.newRequestQueue(DriverAreaActivity.this);
                 queue.add(gpsRequest);
 

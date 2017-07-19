@@ -73,15 +73,25 @@
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_above="@+id/bRegister"
+            android:layout_above="@+id/cb_driver"
             android:layout_alignParentLeft="false"
             android:layout_alignParentStart="false"
-            android:layout_marginBottom="50dp"
+            android:layout_marginBottom="10dp"
             android:ems="10"
             android:hint="Password"
             android:inputType="textPassword"
             tools:layout_editor_absoluteX="-18dp"
             tools:layout_editor_absoluteY="75dp" />
+
+        <CheckBox
+            android:id="@+id/cb_driver"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bRegister"
+            android:layout_alignLeft="@+id/etPassword"
+            android:layout_alignRight="@+id/etPassword"
+            android:layout_marginBottom="40dp"
+            android:text="Are you a driver?" />
 
         <Button
             android:id="@+id/bRegister"
@@ -92,7 +102,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentStart="true"
-            android:layout_marginBottom="60dp"
+            android:layout_marginBottom="40dp"
             android:text="Register"
             tools:layout_editor_absoluteX="18dp"
             tools:layout_editor_absoluteY="198dp" />

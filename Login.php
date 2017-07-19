@@ -1,22 +1,52 @@
 
 <?php
-    $servername = "148.72.232.169";
-    $username = "ant";
-    $password = "AntColony";
-    $dbname = "ant";
-    $dbport = "3306";
+   
+    $statement =null;
+    $ID=null; 
+    $name=null;
+    $age=null;
+    $gender=null; 
+    $username=null; 
+    $password=null; 
+    $longitude=null; 
+    $latitude=null; 
+    $time=null; 
+    $rating=null; 
+    $waiting=null; 
+    $distance=null;
 
-    $con = mysqli_connect($servername,$username,$password,$dbname,$dbport);
+
+    $con = mysqli_connect("localhost","id1771399_fatemeh4057","fatemeh4057","id1771399_mysystem");
+
     
     $username = $_POST["username"];
     $password = $_POST["password"];
+    $isdriver = $_POST["isDriver"];
     
-    $statement = mysqli_prepare($con, "SELECT * FROM user WHERE username = ? AND password = ?");
-    mysqli_stmt_bind_param($statement, "ss", $username, $password);
-    mysqli_stmt_execute($statement);
+
+
+    if($isdriver == "false")
+    {
     
-    mysqli_stmt_store_result($statement);
-    mysqli_stmt_bind_result($statement, $userID, $name, $age, $gender, $username, $password, $Longitude, $Latitude, $timeStamp);
+        $statement = mysqli_prepare($con, "SELECT * FROM user WHERE username = ? AND password = ?");
+        mysqli_stmt_bind_param($statement, "ss", $username, $password);
+        mysqli_stmt_execute($statement);
+    
+        mysqli_stmt_store_result($statement);
+        mysqli_stmt_bind_result($statement, $ID, $name, $age, $gender, $username, $password, $longitude, $latitude, $time);
+    }
+    else
+    {
+        $statement = mysqli_prepare($con, "SELECT * FROM Driver WHERE username = ? AND password = ?");
+        mysqli_stmt_bind_param($statement, "ss", $username, $password);
+        mysqli_stmt_execute($statement);
+    
+
+
+        mysqli_stmt_store_result($statement);
+        mysqli_stmt_bind_result($statement, $ID, $name, $age, $gender, $username, $password, $longitude, $latitude, $time, $rating, $waiting, $distance);
+
+    }
     
     $response = array();
     $response["success"] = false;  
@@ -28,7 +58,7 @@
         $response["gender"] = $gender;
         $response["username"] = $username;
         $response["password"] = $password;
-       
+        $response["isDriver"] = $isdriver;       
     }
     
     echo json_encode($response);
